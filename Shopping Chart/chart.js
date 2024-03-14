@@ -18,7 +18,29 @@ const addProduct = () =>{
     console.log(quantity);
 
     // set to local storage simple way
-    localStorage.setItem(product, quantity)
+    // localStorage.setItem(product, quantity)
+    saveItemToLocalStorage(product, quantity);
+}
+
+const getShoppingCartFromLocalStorage =()=>{
+    let savedCart = localStorage.getItem('cart');//ekta item cart nilam;
+
+    // cart string thake, etake object banaite hobe age;
+    let cart = {};
+    if(savedCart){//if cart thake available then ....
+        cart = JSON.parse(savedCart);//...cart taake object e convert korbo;
+    }
+    return cart;
+}
+
+const saveItemToLocalStorage = (product, quantity)=>{
+    const cart = getShoppingCartFromLocalStorage(); //shopping chart niye object e covert korar por local storage e save kora holo;
+
+    cart[product] = quantity;
+    const cartStringified = JSON.stringify(cart);
+
+    //save to local storage;
+    localStorage.setItem('cart', cartStringified)
 }
 
 const displayProduct = (product, quantity) => {
